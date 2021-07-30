@@ -44,7 +44,7 @@ export default class App {
 
     this.gl = this.renderer.gl
 
-    document.body.appendChild(this.gl.canvas)
+    document.querySelector(".data-container").appendChild(this.gl.canvas)
   }
 
   createCamera () {
@@ -81,7 +81,7 @@ export default class App {
 
   createMedias () {
     this.mediasElements = document.querySelectorAll('.demo-2__gallery__figure')
-    this.medias = Array.from(this.mediasElements).map(element => {
+    this.medias = Array.from(this.mediasElements).map((element, index) => {
       let media = new Media({
         element,
         geometry: this.planeGeometry,
@@ -91,6 +91,16 @@ export default class App {
         viewport: this.viewport,
         width: this.galleryWidth
       })
+
+      if (index % 2) {
+        media.bounds.height = 356;
+        media.bounds.width = 356;
+      } else {
+        media.bounds.height = 280;
+        media.bounds.width = 280;
+      }
+
+      media.screen.height = 356;
 
       return media
     })
@@ -157,13 +167,13 @@ export default class App {
     this.galleryBounds = this.gallery.getBoundingClientRect()
     this.galleryWidth = this.viewport.width * this.galleryBounds.width / this.screen.width
 
-    if (this.medias) {
-      this.medias.forEach(media => media.onResize({
-        screen: this.screen,
-        viewport: this.viewport,
-        width: this.galleryWidth
-      }))
-    }
+    // if (this.medias) {
+    //   this.medias.forEach(media => media.onResize({
+    //     screen: this.screen,
+    //     viewport: this.viewport,
+    //     width: this.galleryWidth
+    //   }))
+    // }
   }
 
   /**
