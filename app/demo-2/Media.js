@@ -75,7 +75,7 @@ export default class {
   }
 
   updateY (y = 0) {
-    this.plane.position.y = (this.viewport.height / 2) - (this.plane.scale.y / 2) - ((this.bounds.top - y) / this.screen.height) * this.viewport.height
+    // this.plane.position.y = (this.viewport.height / 2) - (this.plane.scale.y / 2) - ((this.bounds.top - y) / this.screen.height) * this.viewport.height
   }
 
   update (x, direction) {
