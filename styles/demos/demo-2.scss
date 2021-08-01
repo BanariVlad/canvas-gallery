@@ -1,8 +1,10 @@
 .demo-2 {
-  height: 100%;
   position: static;
   width: 100%;
   z-index: 1;
+  max-height: 356px;
+  min-height: 356px;
+  height: 356px;
 }
 
 .demo-2__gallery {

@@ -148,7 +148,7 @@ export default class App {
     this.renderer.setSize(this.screen.width, this.screen.height)
 
     this.camera.perspective({
-      aspect: this.gl.canvas.width / this.gl.canvas.height
+      aspect: this.gl.canvas.width
     })
 
     const fov = this.camera.fov * (Math.PI / 180)
