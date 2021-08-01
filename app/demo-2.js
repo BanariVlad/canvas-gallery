@@ -61,7 +61,6 @@ export default class App {
     this.post = new Post(this.gl)
 
     this.pass = this.post.addPass({
-      fragment,
       uniforms: {
         uResolution: this.resolution,
         uStrength: { value: 0 }

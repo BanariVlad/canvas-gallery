@@ -120,7 +120,7 @@ export default class {
       if (viewport) {
         this.viewport = viewport
 
-        this.plane.program.uniforms.uViewportSizes.value = [this.viewport.width, this.viewport.height]
+        // this.plane.program.uniforms.uViewportSizes.value = [this.viewport.width, this.viewport.height]
       }
     }
 
