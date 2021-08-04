@@ -82,13 +82,15 @@ export default class App {
     this.mediasElements = document.querySelectorAll('.demo-2__gallery__figure')
     this.medias = Array.from(this.mediasElements).map((element, index) => {
       let media = new Media({
+        index,
         element,
+        dimensions: index % 2 ? [356, 356] : [280, 280],
         geometry: this.planeGeometry,
         gl: this.gl,
         scene: this.scene,
         screen: this.screen,
         viewport: this.viewport,
-        width: this.galleryWidth
+        width: this.galleryWidth,
       })
 
       if (index % 2) {

@@ -2,10 +2,13 @@ import { Mesh, Program, Texture } from 'ogl'
 
 import fragment from './fragment.glsl'
 import vertex from './vertex.glsl'
+import Jimp from "jimp/es";
 
 export default class {
-  constructor ({ element, geometry, gl, scene, screen, viewport, width }) {
+  constructor ({ dimensions, index, element, geometry, gl, scene, screen, viewport, width }) {
     this.element = element
+    this.index = index
+    this.dimensions = dimensions
     this.image = this.element.querySelector('img')
 
     this.extra = 0
@@ -23,16 +26,33 @@ export default class {
   }
 
   createMesh () {
-    const image = new Image()
+    const image = new Image();
+
+    Jimp.read(this.image.src)
+      .then(img => {
+        img.getBase64Async(Jimp.MIME_PNG)
+          .then(res => {
+
+            Jimp.read(res).then(async img => {
+              const height = img.bitmap.height;
+              const width = img.bitmap.width;
+
+              image.src = await img.crop(width / 2, height / 2, ...this.dimensions).getBase64Async(Jimp.MIME_PNG);
+
+              image.onload = _ => {
+                program.uniforms.uImageSizes.value = [image.naturalWidth, image.naturalHeight]
+                texture.image = image
+              }
+            })
+        })
+      })
+      .catch(err => {
+        // Handle an exception.
+      });
+
     const texture = new Texture(this.gl, {
       generateMipmaps: false
     })
-
-    image.src = this.image.src
-    image.onload = _ => {
-      program.uniforms.uImageSizes.value = [image.naturalWidth, image.naturalHeight]
-      texture.image = image
-    }
 
     const program = new Program(this.gl, {
       fragment,

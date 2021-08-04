@@ -8,6 +8,10 @@ const config = require('./webpack.config')
 module.exports = merge(config, {
   mode: 'production',
 
+  node: {
+    fs: "empty"
+  },
+
   output: {
     path: path.join(__dirname, 'InifniteAutoScrollingGallery')
   },
